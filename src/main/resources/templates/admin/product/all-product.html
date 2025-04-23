@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid p-5">
+			
+			
+			<div class="row">
+				<div class="col-md-4">
+					<a th:href="@{'/admin/add-product'}" class="btn btn-danger mb-3">Add Product</a>
+				</div>
+			</div>
+			
+			<div class="row">
+				<!-- <div class="col-md-4">
+					<div class="card custom-card-shadow">
+						<div class="card-header text-center">
+							<p class="fs-4">Add Category</p>
+							<th:block th:if="${session.successMsg}">
+								<p class="text-success fw-bold text-center mt-2">[[${session.successMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+							<th:block th:if="${session.errorMsg}">
+								<p class="text-danger fw-bold text-center mt-2">[[${session.errorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+
+						</div>
+
+						
+					</div>
+				</div> -->
+
+				<div class="col-md-12">
+					<div class="card custom-card-shadow">
+						<div class="card-header text-center fs-4">List of Products</div>
+
+						<th:block th:if="${session.successMsg}">
+							<p class="text-success fw-bold text-center mt-2">[[${session.successMsg}]]</p>
+							<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+						<th:block th:if="${session.errorMsg}">
+							<p class="text-danger fw-bold text-center mt-2">[[${session.errorMsg}]]</p>
+							<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+
+						<div class="card-body">
+							<table id="productTable" class="table">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">Image</th>
+										<th scope="col">Name</th>
+										<th scope="col">Category</th>
+										<th scope="col">Price</th>
+										<th scope="col">File size</th>
+										<th scope="col">Format</th>
+										<th scope="col">Link download</th>
+										<th scope="col">Status</th>
+										<th scope="col">Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="product : ${products}">
+										<th scope="row">[[${product.id}]]</th>
+										<td><img th:with="cleanedImageUrl=${#strings.contains(product.image_url, 'uploads\') ? 
+									      #strings.substringAfter(product.image_url, 'uploads\') : 
+									      product.image_url}" 
+									       th:src="@{/uploads/{fileName}(fileName=${cleanedImageUrl})}" style="width:45px; height:45px; border-radius:50%;"></td>
+										<td>[[${product.name}]]</td>
+										<td>[[${product.category.name}]]</td>
+										<td>[[${product.price}]] đ</td>
+										<td>[[${product.fileSize}]] MB</td>			
+										<td>[[${product.format}]]</td>
+										<td>
+										  <a th:href="${product.zipFileUrl}" target="_blank"
+										     th:text="${product.zipFileUrl.length() > 25 ? product.zipFileUrl.substring(0, 25) + '...' : product.zipFileUrl}"></a>
+										</td>
+										<td th:text="${product.status} ? 'Active' : 'Inactive'"></td>
+										<td>
+										<!-- th:href="@{'/admin/edit-category/'+${category.id}}" -->  
+										&nbsp; <a th:href="@{'/admin/edit-product/'+${product.id}}"  class="btn btn-info btn-sm"><i class="fa-solid fa-pen-to-square text-decoration-none"></i></a>&nbsp; &nbsp; 
+										<a th:href="@{'/admin/delete-product/'+${product.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure want to delete this?');"><i class="fa-solid fa-trash text-decoration-none"></i></a>
+										<!-- th:href="@{'/admin/delete-category/'+${category.id}}" -->
+										</td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+		 $(document).ready(function() {
+		        $('#productTable').DataTable();
+		    });
+			
+		</script>
+	</section>
+</body>
+</html>

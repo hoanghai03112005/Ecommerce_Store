@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Verify Pending</title>
+</head>
+<body>
+<section>
+	<h2>Vui lòng kiểm tra email của bạn!</h2>
+    <p>Một email xác nhận đã được gửi đến hộp thư của bạn. Hãy nhấp vào liên kết xác nhận trong email để kích hoạt tài khoản. (Lưu ý link chỉ có hiệu lực trong 5p)</p>
+    
+    <p>Nếu bạn không nhận được email, hãy kiểm tra thư mục **Spam** hoặc **Junk Mail**.</p>
+    
+    <br><br>
+    <a href="/login">Quay lại trang đăng nhập</a>
+</section>
+	
+</body>
+</html>

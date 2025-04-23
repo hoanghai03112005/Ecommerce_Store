@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid p-5">
+			
+			
+			
+			
+			<div class="row">
+				<!-- <div class="col-md-4">
+					<div class="card custom-card-shadow">
+						<div class="card-header text-center">
+							<p class="fs-4">Add Category</p>
+							<th:block th:if="${session.successMsg}">
+								<p class="text-success fw-bold text-center mt-2">[[${session.successMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+							<th:block th:if="${session.errorMsg}">
+								<p class="text-danger fw-bold text-center mt-2">[[${session.errorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+
+						</div>
+
+						
+					</div>
+				</div> -->
+
+				<div class="col-md-12">
+					<div class="card custom-card-shadow">
+						<div class="card-header text-center fs-4">List of Orders</div>
+
+						<th:block th:if="${session.successMsg}">
+							<p class="text-success fw-bold text-center mt-2">[[${session.successMsg}]]</p>
+							<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+						<th:block th:if="${session.errorMsg}">
+							<p class="text-danger fw-bold text-center mt-2">[[${session.errorMsg}]]</p>
+							<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+
+						<div class="card-body">
+							<table id="productTable" class="table">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">User name</th>
+										<th scope="col">Email</th>
+										<th scope="col">Created At</th>
+										<th scope="col">Status</th>
+										<th scope="col">Total Price</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="order : ${orders}">
+										<th scope="row">[[${order.id}]]</th>
+										
+										<td>[[${order.user.name}]]</td>
+										<td>[[${order.user.email}]]</td>
+										 <td th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+										<td>[[${order.status}]] </td>			
+										<td th:text="${#numbers.formatDecimal(order.totalPrice, 0, 0)} + ' VND'"></td>
+										<td>
+        									<a th:href="@{'/admin/order-detail?orderId=' + ${order.id}}" class="btn btn-info btn-sm">Chi tiết</a>
+        								</td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+		 $(document).ready(function() {
+		        $('#productTable').DataTable();
+		    });
+			
+		</script>
+	</section>
+</body>
+</html>

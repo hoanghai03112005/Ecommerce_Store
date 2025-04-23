@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+</head>
+<body>
+	<section>
+		<div class="container mt-5 p-5">
+			<div class="row">
+				<div class="col-md-5 p-5">
+				<img alt="" src="/img/login.jpg" width="100%" height="400px">
+			</div>
+			
+			<div class="col-md-7 mt-3 p-5">
+			
+				<div class="card shadow p-3 mb-5 bg-body rounded">
+					<div class="card-header">
+							<p class="fs-4 text-center">Register</p>
+							<th:block th:if="${session.successMsg}">
+								<p class="text-success fw-bold text-center mt-2">[[${session.successMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+							<th:block th:if="${session.errorMsg}">
+								<p class="text-danger fw-bold text-center mt-2">[[${session.errorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+						</div>
+						
+					<div class="card-body">
+						<form action="#" th:action="@{/save-user}" method="post" enctype="multipart/form-data" th:object="${user}">
+								<div class="row">
+									<div class="col">
+										<label class="form-label">Full Name</label> <input
+											class="form-control" th:field="*{name}" type="text" />
+											<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"></p>
+									</div>
+
+									<div class="col">
+										<label class="form-label">Phone</label> <input
+											class="form-control" th:field="*{phone}" type="text" />
+											<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red"></p>
+									</div>
+								</div>
+								
+								<div class="col">
+										<label class="form-label">Email</label> <input
+											class="form-control" th:field="*{email}" type="email" />
+												<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"></p>
+									</div>
+								
+								<div class="row">
+									<div class="col">
+										<label class="form-label">Password</label> <input
+											class="form-control" th:field="*{password}" type="password" />
+												<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></p>
+									</div>
+
+									<div class="col">
+										<label class="form-label">Confirm Password</label> <input
+											class="form-control" th:field="*{ConfirmPassword}" type="password" />
+											<p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" style="color: red"></p>
+									</div>
+								</div>
+								
+								<div class="col">
+										<label class="form-label">Profile Image</label> <input
+											class="form-control" name="image" type="file" />
+									</div>
+								
+								
+
+								<button type="submit" class="btn bg-danger mt-3 text-white col-md-12">Register</button>
+						</form>
+
+						
+					</div>
+					<div class="card-footer text-center">
+						<a href="#" class="text-decoration-none">Forgot Password ?</a><br>Already have an account
+						<a href="/signin" class="text-decoration-none"> Login</a>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</section>
+	
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container mt-5">
+			<div class="row">
+				
+			
+			
+			<div class="col-md-6 mx-auto">
+				<p class="fs-4 text-center">Payment Type</p>
+				<hr>
+				
+				<div class="card">
+					<div class="card-body">
+						<table class="table table-borderless">
+								<tbody>
+								
+									<tr>
+										<td>Total Order Price</td>
+										<td>:</td>
+										<td>[[${totalOrderPrice}]] VND</td>
+									</tr>
+								</tbody>
+							</table>
+					</div>
+				</div>
+				
+				<div class="card shadow p-3 mb-5 bg-body rounded">
+						
+						<div class="card-body">
+						<form th:action="@{/place-order}" method="post">
+							<input type="hidden" name="productId"
+           							th:value="${param.productId}" />
+           							
+							<div class="mb-3">
+								<label class="form-label">Select Payment Method</label> 
+								<select class="form-control" name="paymentMethod" required="required">
+									<option value="">---Select---</option>
+									<option value="BANK">Bank</option>
+									<option value="PAYPAL">PayPal</option>
+								</select>
+							</div>
+							
+							<button type="submit" class="btn bg-danger text-white col-md-12">Place Order</button>
+						</form>
+
+						
+					</div>
+					
+				</div>
+			</div>
+			</div>
+		</div>
+	</section>
+
+</body>

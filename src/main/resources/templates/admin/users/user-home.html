@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid p-5">
+			
+			
+
+			<div class="row">
+				<!-- <div class="col-md-4">
+					<div class="card custom-card-shadow">
+						<div class="card-header text-center">
+							<p class="fs-4">Add Category</p>
+							<th:block th:if="${session.successMsg}">
+								<p class="text-success fw-bold text-center mt-2">[[${session.successMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+							<th:block th:if="${session.errorMsg}">
+								<p class="text-danger fw-bold text-center mt-2">[[${session.errorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+
+						</div>
+
+						
+					</div>
+				</div> -->
+
+				<div class="col-md-12">
+					<div class="card custom-card-shadow">
+						<div class="card-header text-center fs-4">List of Users</div>
+
+						<th:block th:if="${session.successMsg}">
+							<p class="text-success fw-bold text-center mt-2">[[${session.successMsg}]]</p>
+							<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+						<th:block th:if="${session.errorMsg}">
+							<p class="text-danger fw-bold text-center mt-2">[[${session.errorMsg}]]</p>
+							<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+						</th:block>
+
+						<div class="card-body">
+							<table class="display" cellspacing="0" width="100%"  id="userTable">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">Avatar</th>
+										<th scope="col">Name</th>
+										<th scope="col">Email</th>
+										<th scope="col">Mobile</th>
+										<th scope="col">Status</th>
+										<th scope="col">CreatedAt</th>
+										<th scope="col">Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="user : ${users}">
+										<td>[[${user.id}]]</td>
+										<td><img th:with="cleanedImageUrl=${#strings.contains(user.image_url, 'uploads\') ? 
+									      #strings.substringAfter(user.image_url, 'uploads\') : 
+									      user.image_url}" 
+									       th:src="@{/uploads/{fileName}(fileName=${cleanedImageUrl})}" style="width:45px; height:45px; border-radius:50%;"></td>
+										<td>[[${user.name}]]</td>
+										<td>[[${user.email}]]</td>
+										<td>[[${user.phone}]]</td>
+										<td th:text="${user.enabled} ? 'Active' : 'Inactive'"></td>
+										<td th:text="${#temporals.format(user.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+										<td>
+										    <form th:action="@{'/admin/edit-user-status/' + ${user.id}}" method="post">
+										        <input type="hidden" name="status" th:value="${user.enabled} ? 'false' : 'true'"/>
+										        
+										        <button type="submit" 
+										                class="btn" 
+										                th:classappend="${user.enabled} ? 'btn-danger' : 'btn-success'"
+										                th:onclick="'return confirm(\'Are you sure want to ' + (${user.enabled} ? 'Inactive' : 'Active') + ' this User?\');'">
+										            <i class="fas" th:classappend="${user.enabled} ? 'fa-user-times' : 'fa-user-check'"></i>
+										            <span th:text="${user.enabled} ? 'Inactive' : 'Active'"></span>
+										        </button>
+										    </form>
+										</td>
+
+
+										
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		 $(document).ready(function() {
+		        $('#userTable').DataTable();
+		    });
+			
+		</script>
+	</section>
+</body>
+</html>

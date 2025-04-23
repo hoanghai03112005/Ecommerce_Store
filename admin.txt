@@ -1,0 +1,4 @@
+hoanghai03112k5@gmail.com
+1@hai0311
+
+Insert into users(name, email, password, role, phone, image_url, enabled) values (N'Hoàng Hải', 'hoanghai03112k5@gmail.com', '$2a$10$mgX5TmeHYpItZkwbOLr4ReFelOO1JKgnWgvM1yuLQ2Af4MsPmFXum', 'ADMIN', '0354927541', 'uploads\1742914799651_5.jpg', 1)

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section style="display: flex; justify-content: center;">
+		 <div class="profile-card">
+        <h2 class="text-center">Edit Profile</h2>
+        <form th:action="@{/update-profile}" method="post" th:object="${user}" style="width: 150%;">
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" class="form-control" th:field="*{name}" required>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"></p>
+            </div>
+            <div class="form-group">
+                <label>Email:(Không được thay đổi)</label>
+                <input type="email" class="form-control" th:field="*{email}" readonly>
+            </div>
+            <div class="form-group">
+                <label>Phone:</label>
+                <input type="text" class="form-control" th:field="*{phone}">
+                 <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red"></p>
+            </div>
+            <button type="submit" class="btn btn-success">Save Changes</button>
+        </form>
+    </div>
+	</section>
+
+
+</body>
+</html>
